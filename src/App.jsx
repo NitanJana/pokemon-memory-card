@@ -12,10 +12,12 @@ function App() {
       const response = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=15');
       const data = await response.json();
       const pokeArray = await data.results;
+      // Get only base forms of pokemons
+      const trimmedArray = pokeArray.filter((pokemon) => pokeArray.indexOf(pokemon) % 3 === 0);
 
       // Return pokemon names and image urls
       const updatedPokeArray = await Promise.all(
-        pokeArray.map(async (pokemon) => {
+        trimmedArray.map(async (pokemon) => {
           const name = pokemon.name;
           const imgUrl = await getPokemonImg(pokemon.url);
           return { name, imgUrl };
@@ -39,7 +41,7 @@ function App() {
   return (
     <>
       {loading ? (
-        <Loader/>
+        <Loader />
       ) : (
         pokeData.map((pokemon) => {
           return (
