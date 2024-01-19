@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import Loader from './components/Loader';
+import Pokemon from './components/Pokemon';
 
 function App() {
   const [pokeData, setPokeData] = useState([]);
@@ -21,7 +22,7 @@ function App() {
       // Return pokemon names and image urls
       const updatedPokeArray = await Promise.all(
         pokeArray.map(async (pokemon) => {
-          const name = pokemon.name;
+          const name = await pokemon.name;
           const imgUrl = await getPokemonImg(pokemon.url);
           return { name, imgUrl };
         }),
@@ -47,12 +48,7 @@ function App() {
         <Loader />
       ) : (
         pokeData.map((pokemon) => {
-          return (
-            <div key={pokemon.name}>
-              <p>{pokemon.name}</p>
-              <img src={pokemon.imgUrl} alt={pokemon.name} />
-            </div>
-          );
+          return <Pokemon key={pokemon.name} pokemon={pokemon} />;
         })
       )}
     </>
