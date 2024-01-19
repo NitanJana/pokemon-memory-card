@@ -5,7 +5,7 @@ import PokemonGrid from './components/PokemonGrid';
 
 function App() {
   const [pokeData, setPokeData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,15 +24,19 @@ function App() {
         pokeArray.map(async (pokemon) => {
           // Store capitalized pokemon name
           const name = await capitalizeName(pokemon.name);
-          const imgUrl = await getPokemonImg(pokemon.url);
-          return { name, imgUrl };
+          const imgUrl = await getPokemonImgUrl(pokemon.url);
+          const imgBlob = await getPokemonImg(imgUrl);
+          pokemon = { name, imgBlob };
+          return pokemon;
         }),
       );
 
       setPokeData(updatedPokeArray);
     };
     fetchData();
-    setLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 4000);
     // Fetch data only once when the component mounts
   }, []);
 
@@ -41,15 +45,21 @@ function App() {
   };
 
   // Fetch pokemon image url
-  const getPokemonImg = async (url) => {
+  const getPokemonImgUrl = async (url) => {
     const response = await fetch(url);
     const data = await response.json();
     return data.sprites.front_default;
   };
+  // Fetch pokemon image blob
+  const getPokemonImg = async (url) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return blob;
+  };
 
   return (
     <div className="flex h-screen items-center justify-center">
-      {loading ? <Loader /> : pokeData && <PokemonGrid pokeData={pokeData} />}
+      {isLoading ? <Loader /> : <PokemonGrid pokeData={pokeData} />}
     </div>
   );
 }

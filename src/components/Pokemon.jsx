@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 
 export default function Pokemon({ pokemon }) {
   return (
-    <div className="cursor-pointer rounded-xl bg-emerald-500 p-4">
-      <p className="text-center text-md font-semibold text-white">{pokemon.name}</p>
-      <img src={pokemon.imgUrl} alt={pokemon.name} width="100px" height="100px" />
+    <div className="w-full cursor-pointer rounded-xl bg-emerald-500 p-4">
+      <p className="text-md text-center font-semibold text-white">{pokemon.name}</p>
+      <img src={URL.createObjectURL(pokemon.imgBlob)} alt={pokemon.name} width="100px" height="100px" />
     </div>
   );
 }
@@ -12,6 +12,6 @@ export default function Pokemon({ pokemon }) {
 Pokemon.propTypes = {
   pokemon: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    imgUrl: PropTypes.string.isRequired,
+    imgBlob: PropTypes.instanceOf(Blob).isRequired,
   }).isRequired,
 };
