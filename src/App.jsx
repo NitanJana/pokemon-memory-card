@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import Loader from './components/Loader';
-import Pokemon from './components/Pokemon';
+import PokemonGrid from './components/PokemonGrid';
 
 function App() {
   const [pokeData, setPokeData] = useState([]);
@@ -22,18 +22,23 @@ function App() {
       // Return pokemon names and image urls
       const updatedPokeArray = await Promise.all(
         pokeArray.map(async (pokemon) => {
-          const name = await pokemon.name;
+          // Store capitalized pokemon name
+          const name = await capitalizeName(pokemon.name);
           const imgUrl = await getPokemonImg(pokemon.url);
           return { name, imgUrl };
         }),
       );
 
       setPokeData(updatedPokeArray);
-      setLoading(false);
     };
     fetchData();
+    setLoading(false);
     // Fetch data only once when the component mounts
   }, []);
+
+  const capitalizeName = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
 
   // Fetch pokemon image url
   const getPokemonImg = async (url) => {
@@ -43,15 +48,9 @@ function App() {
   };
 
   return (
-    <>
-      {loading ? (
-        <Loader />
-      ) : (
-        pokeData.map((pokemon) => {
-          return <Pokemon key={pokemon.name} pokemon={pokemon} />;
-        })
-      )}
-    </>
+    <div className="flex h-screen items-center justify-center">
+      {loading ? <Loader /> : pokeData && <PokemonGrid pokeData={pokeData} />}
+    </div>
   );
 }
 
