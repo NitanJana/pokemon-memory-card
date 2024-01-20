@@ -7,7 +7,8 @@ function App() {
   const [pokeData, setPokeData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [score, setScore] = useState(0);
-
+  const [isClicked, setIsClicked] = useState([]);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,12 +62,20 @@ function App() {
   };
   return (
     <div className="flex h-screen items-center justify-center">
-      {isLoading ? (
+      {isGameOver ? (
+        <p>Game Over Score : {score}</p>
+      ) : isLoading ? (
         <Loader />
       ) : (
         <>
           <p className="absolute top-4">Score: {score}</p>
-          <PokemonGrid pokeData={pokeData} updateScore={() => setScore(score + 1)} />
+          <PokemonGrid
+            pokeData={pokeData}
+            updateScore={() => setScore(score + 1)}
+            isClicked={isClicked}
+            setIsClicked={setIsClicked}
+            setIsGameOver={setIsGameOver}
+          />
         </>
       )}
     </div>

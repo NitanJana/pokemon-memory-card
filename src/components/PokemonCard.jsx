@@ -1,9 +1,15 @@
 import PropTypes from 'prop-types';
 
-export default function PokemonCard({ pokemon, updateScore }) {
+const PokemonCard = ({ pokemon, updateScore, isClicked, setIsClicked, setIsGameOver }) => {
   const handleScore = () => {
-    // console.log(pokemon);
-    updateScore();
+    if (isClicked.includes(pokemon)) {
+      setIsGameOver(true);
+    } else {
+      setIsClicked((prev) => {
+        return [...prev, pokemon];
+      });
+      updateScore();
+    }
   };
 
   // Convert image blobs to urls
@@ -17,7 +23,7 @@ export default function PokemonCard({ pokemon, updateScore }) {
       <img src={convertBlobs(pokemon.imgBlob)} alt={pokemon.name} width="100px" height="100px" />
     </div>
   );
-}
+};
 
 PokemonCard.propTypes = {
   pokemon: PropTypes.shape({
@@ -25,4 +31,9 @@ PokemonCard.propTypes = {
     imgBlob: PropTypes.instanceOf(Blob).isRequired,
   }).isRequired,
   updateScore: PropTypes.func.isRequired,
+  isClicked: PropTypes.array.isRequired,
+  setIsClicked: PropTypes.func.isRequired,
+  setIsGameOver: PropTypes.func.isRequired,
 };
+
+export default PokemonCard;
