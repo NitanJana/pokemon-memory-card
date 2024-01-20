@@ -7,7 +7,6 @@ function App() {
   const [pokeData, setPokeData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [score, setScore] = useState(0);
-  const [isClicked, setIsClicked] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
 
   useEffect(() => {
@@ -29,7 +28,7 @@ function App() {
           const name = await capitalizeName(pokemon.name);
           const imgUrl = await getPokemonImgUrl(pokemon.url);
           const imgBlob = await getPokemonImg(imgUrl);
-          pokemon = { name, imgBlob };
+          pokemon = { name, imgBlob, clicked: false };
           return pokemon;
         }),
       );
@@ -73,8 +72,6 @@ function App() {
             pokeData={pokeData}
             setPokeData={setPokeData}
             updateScore={() => setScore(score + 1)}
-            isClicked={isClicked}
-            setIsClicked={setIsClicked}
             setIsGameOver={setIsGameOver}
           />
         </>
