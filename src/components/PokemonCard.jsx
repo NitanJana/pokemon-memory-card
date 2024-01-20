@@ -19,8 +19,9 @@ const PokemonCard = ({ pokemon, updateScore, isClicked, setPokeData, setIsClicke
   const convertBlobs = (blob) => {
     return URL.createObjectURL(blob);
   };
+
   return (
-    <div className="w-full cursor-pointer rounded-xl bg-emerald-500 p-4 flex flex-col gap-2" onClick={handleScore}>
+    <div className="flex w-full cursor-pointer flex-col gap-2 rounded-xl bg-emerald-500 p-4" onClick={handleScore}>
       <img src={convertBlobs(pokemon.imgBlob)} alt={pokemon.name} width="100px" height="100px" />
 
       <p className="text-md text-center font-semibold text-white">{pokemon.name}</p>

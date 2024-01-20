@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import './App.css';
 import Loader from './components/Loader';
 import PokemonGrid from './components/PokemonGrid';
+import './App.css';
 
 function App() {
   const [pokeData, setPokeData] = useState([]);
@@ -70,8 +70,8 @@ function App() {
         <>
           <p className="absolute top-4">Score: {score}</p>
           <PokemonGrid
-                pokeData={pokeData}
-                setPokeData={setPokeData}
+            pokeData={pokeData}
+            setPokeData={setPokeData}
             updateScore={() => setScore(score + 1)}
             isClicked={isClicked}
             setIsClicked={setIsClicked}
