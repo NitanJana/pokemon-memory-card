@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const PokemonCard = ({ pokemon, updateScore, setPokeData, setIsGameOver }) => {
+const PokemonCard = ({ pokemon, updateScore, setPokeData, setIsGameOver, shuffleArray }) => {
   const handleScore = () => {
     // Clicking card second time
     if (pokemon.clicked) {
@@ -8,23 +8,22 @@ const PokemonCard = ({ pokemon, updateScore, setPokeData, setIsGameOver }) => {
     }
     // Clicking card first time
     else {
-      toggleCardClick();
+      toggleCardClick(shuffleArray);
       updateScore();
-      // randomizing the pokeData array
-      setPokeData((currentPokeData) => {
-        return currentPokeData.sort(() => 0.5 - Math.random());
-      });
     }
   };
 
   const toggleCardClick = () => {
     setPokeData((currentPokeData) => {
-      return currentPokeData.map((currentPokemon) => {
+      // Change the card that is clicked
+      const updatedData = currentPokeData.map((currentPokemon) => {
         if (currentPokemon.name === pokemon.name) {
           return { ...currentPokemon, clicked: true };
         }
         return currentPokemon;
       });
+      // randomizing the pokeData array
+      return shuffleArray(updatedData);
     });
   };
 
@@ -58,10 +57,9 @@ PokemonCard.propTypes = {
     clicked: PropTypes.bool.isRequired,
   }).isRequired,
   updateScore: PropTypes.func.isRequired,
-  isClicked: PropTypes.array.isRequired,
   setPokeData: PropTypes.func.isRequired,
-  setIsClicked: PropTypes.func.isRequired,
   setIsGameOver: PropTypes.func.isRequired,
+  shuffleArray: PropTypes.func.isRequired,
 };
 
 export default PokemonCard;

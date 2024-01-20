@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Loader from './components/Loader';
 import PokemonGrid from './components/PokemonGrid';
+import GameOver from './components/GameOver';
 import './App.css';
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
       const trimmedResults = results.filter((pokemon) => results.indexOf(pokemon) % 3 === 0);
 
       // Select random 15 pokemon
-      const pokeArray = trimmedResults.sort(() => 0.5 - Math.random()).slice(0, 15);
+      const pokeArray = shuffleArray(trimmedResults).slice(0, 15);
 
       // Return pokemon names and image urls
       const updatedPokeArray = await Promise.all(
@@ -42,6 +43,11 @@ function App() {
     // Fetch data only once when the component mounts
   }, []);
 
+  // Shuffle the array elements
+  const shuffleArray = (array) => {
+    return array.sort(() => 0.5 - Math.random());
+  };
+
   // Capitalize name before storing
   const capitalizeName = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -62,7 +68,13 @@ function App() {
   return (
     <div className="flex h-screen items-center justify-center">
       {isGameOver ? (
-        <p>Game Over Score : {score}</p>
+        <GameOver
+          score={score}
+          setScore={setScore}
+          setIsGameOver={setIsGameOver}
+          setPokeData={setPokeData}
+          shuffleArray={shuffleArray}
+        />
       ) : isLoading ? (
         <Loader />
       ) : (
@@ -73,6 +85,7 @@ function App() {
             setPokeData={setPokeData}
             updateScore={() => setScore(score + 1)}
             setIsGameOver={setIsGameOver}
+            shuffleArray={shuffleArray}
           />
         </>
       )}
