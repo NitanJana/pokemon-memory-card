@@ -6,6 +6,8 @@ import PokemonGrid from './components/PokemonGrid';
 function App() {
   const [pokeData, setPokeData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [score, setScore] = useState(0);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +42,7 @@ function App() {
     // Fetch data only once when the component mounts
   }, []);
 
+  // Capitalize name before storing
   const capitalizeName = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   };
@@ -56,10 +59,16 @@ function App() {
     const blob = await response.blob();
     return blob;
   };
-
   return (
     <div className="flex h-screen items-center justify-center">
-      {isLoading ? <Loader /> : <PokemonGrid pokeData={pokeData} />}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <p className="absolute top-4">Score: {score}</p>
+          <PokemonGrid pokeData={pokeData} updateScore={() => setScore(score + 1)} />
+        </>
+      )}
     </div>
   );
 }
