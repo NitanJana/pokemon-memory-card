@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import PokemonCard from './PokemonCard';
 
-const PokemonGrid = ({ pokeData, updateScore, setPokeData, setIsGameOver, shuffleArray }) => {
+const PokemonGrid = ({ pokeData, updateScore, setPokeData, setIsGameOver }) => {
   // Memoize pokemon grid
   const memoizedPokemonCards = useMemo(() => {
     return pokeData.map((pokemon) => (
@@ -12,10 +12,9 @@ const PokemonGrid = ({ pokeData, updateScore, setPokeData, setIsGameOver, shuffl
         pokemon={pokemon}
         updateScore={updateScore}
         setIsGameOver={setIsGameOver}
-        shuffleArray={shuffleArray}
       />
     ));
-  }, [pokeData, setPokeData, updateScore, setIsGameOver, shuffleArray]);
+  }, [pokeData, setPokeData, updateScore, setIsGameOver]);
 
   return (
     <div className="m-4 grid grid-cols-3 items-center justify-items-center gap-4 p-4 md:grid-cols-5">
@@ -29,7 +28,6 @@ PokemonGrid.propTypes = {
   updateScore: PropTypes.func.isRequired,
   setPokeData: PropTypes.func.isRequired,
   setIsGameOver: PropTypes.func.isRequired,
-  shuffleArray: PropTypes.func.isRequired,
 };
 
 export default PokemonGrid;

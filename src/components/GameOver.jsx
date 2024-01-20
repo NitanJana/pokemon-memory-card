@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
+import shuffleArray from '../utilities/shuffleArray';
 
-const GameOver = ({ score, setScore, setIsGameOver, setPokeData, shuffleArray }) => {
+const GameOver = ({ score, setScore, setIsGameOver, setPokeData }) => {
   const handleClick = () => {
     setPokeData((currentPokeData) => {
       // Reset all cards
@@ -33,7 +34,6 @@ GameOver.propTypes = {
   setScore: PropTypes.func.isRequired,
   setIsGameOver: PropTypes.func.isRequired,
   setPokeData: PropTypes.func.isRequired,
-  shuffleArray: PropTypes.func.isRequired,
 };
 
 export default GameOver;

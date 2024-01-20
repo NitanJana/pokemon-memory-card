@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
+import shuffleArray from '../utilities/shuffleArray';
 
-const PokemonCard = ({ pokemon, updateScore, setPokeData, setIsGameOver, shuffleArray }) => {
+const PokemonCard = ({ pokemon, updateScore, setPokeData, setIsGameOver }) => {
   const handleScore = () => {
     // Clicking card second time
     if (pokemon.clicked) {
@@ -59,7 +60,6 @@ PokemonCard.propTypes = {
   updateScore: PropTypes.func.isRequired,
   setPokeData: PropTypes.func.isRequired,
   setIsGameOver: PropTypes.func.isRequired,
-  shuffleArray: PropTypes.func.isRequired,
 };
 
 export default PokemonCard;

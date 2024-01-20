@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { fetchData } from './utilities/fetchData';
+
 import Loader from './components/Loader';
 import PokemonGrid from './components/PokemonGrid';
 import GameOver from './components/GameOver';
@@ -11,70 +13,21 @@ function App() {
   const [isGameOver, setIsGameOver] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      // Get pokemon name and pokemon urls here
-      const response = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=100');
-      const data = await response.json();
-      const results = await data.results;
-      // Get only base forms of pokemons
-      const trimmedResults = results.filter((pokemon) => results.indexOf(pokemon) % 3 === 0);
-
-      // Select random 15 pokemon
-      const pokeArray = shuffleArray(trimmedResults).slice(0, 15);
-
-      // Return pokemon names and image urls
-      const updatedPokeArray = await Promise.all(
-        pokeArray.map(async (pokemon) => {
-          // Store capitalized pokemon name
-          const name = await capitalizeName(pokemon.name);
-          const imgUrl = await getPokemonImgUrl(pokemon.url);
-          const imgBlob = await getPokemonImg(imgUrl);
-          pokemon = { name, imgBlob, clicked: false };
-          return pokemon;
-        }),
-      );
-
+    const getData = async () => {
+      const updatedPokeArray = await fetchData('https://pokeapi.co/api/v2/pokemon/', '100');
       setPokeData(updatedPokeArray);
+      // Delay loading by 4 seconds
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 4000);
     };
-    fetchData();
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 4000);
-    // Fetch data only once when the component mounts
+    getData();
   }, []);
 
-  // Shuffle the array elements
-  const shuffleArray = (array) => {
-    return array.sort(() => 0.5 - Math.random());
-  };
-
-  // Capitalize name before storing
-  const capitalizeName = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-  };
-
-  // Fetch pokemon image url
-  const getPokemonImgUrl = async (url) => {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.sprites.front_default;
-  };
-  // Fetch pokemon image blob
-  const getPokemonImg = async (url) => {
-    const response = await fetch(url);
-    const blob = await response.blob();
-    return blob;
-  };
   return (
     <div className="flex h-screen items-center justify-center">
       {isGameOver ? (
-        <GameOver
-          score={score}
-          setScore={setScore}
-          setIsGameOver={setIsGameOver}
-          setPokeData={setPokeData}
-          shuffleArray={shuffleArray}
-        />
+        <GameOver score={score} setScore={setScore} setIsGameOver={setIsGameOver} setPokeData={setPokeData} />
       ) : isLoading ? (
         <Loader />
       ) : (
@@ -85,7 +38,6 @@ function App() {
             setPokeData={setPokeData}
             updateScore={() => setScore(score + 1)}
             setIsGameOver={setIsGameOver}
-            shuffleArray={shuffleArray}
           />
         </>
       )}
