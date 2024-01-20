@@ -70,7 +70,8 @@ function App() {
         <>
           <p className="absolute top-4">Score: {score}</p>
           <PokemonGrid
-            pokeData={pokeData}
+                pokeData={pokeData}
+                setPokeData={setPokeData}
             updateScore={() => setScore(score + 1)}
             isClicked={isClicked}
             setIsClicked={setIsClicked}

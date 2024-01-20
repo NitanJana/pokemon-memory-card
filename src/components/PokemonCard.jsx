@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const PokemonCard = ({ pokemon, updateScore, isClicked, setIsClicked, setIsGameOver }) => {
+const PokemonCard = ({ pokemon, updateScore, isClicked, setPokeData, setIsClicked, setIsGameOver }) => {
   const handleScore = () => {
     if (isClicked.includes(pokemon)) {
       setIsGameOver(true);
@@ -9,6 +9,9 @@ const PokemonCard = ({ pokemon, updateScore, isClicked, setIsClicked, setIsGameO
         return [...prev, pokemon];
       });
       updateScore();
+      setPokeData((prev) => {
+        return prev.sort(() => 0.5 - Math.random());
+      });
     }
   };
 
@@ -17,10 +20,10 @@ const PokemonCard = ({ pokemon, updateScore, isClicked, setIsClicked, setIsGameO
     return URL.createObjectURL(blob);
   };
   return (
-    <div className="w-full cursor-pointer rounded-xl bg-emerald-500 p-4" onClick={handleScore}>
-      <p className="text-md text-center font-semibold text-white">{pokemon.name}</p>
-
+    <div className="w-full cursor-pointer rounded-xl bg-emerald-500 p-4 flex flex-col gap-2" onClick={handleScore}>
       <img src={convertBlobs(pokemon.imgBlob)} alt={pokemon.name} width="100px" height="100px" />
+
+      <p className="text-md text-center font-semibold text-white">{pokemon.name}</p>
     </div>
   );
 };
@@ -32,6 +35,7 @@ PokemonCard.propTypes = {
   }).isRequired,
   updateScore: PropTypes.func.isRequired,
   isClicked: PropTypes.array.isRequired,
+  setPokeData: PropTypes.func.isRequired,
   setIsClicked: PropTypes.func.isRequired,
   setIsGameOver: PropTypes.func.isRequired,
 };
