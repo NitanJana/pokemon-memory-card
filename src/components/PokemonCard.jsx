@@ -40,7 +40,7 @@ const PokemonCard = ({ pokemon, updateScore, setPokeData, setIsGameOver }) => {
         className="relative cursor-pointer select-none rounded-xl shadow-xl shadow-[#ec008e7e]"
         onClick={handleScore}
       >
-        <div className="absolute -z-10 h-full w-full rounded-xl bg-gradient-to-r from-[#ec008ee1] to-[#fc6767e1] "></div>
+        <div className="gradient-primay absolute -z-10 h-full w-full rounded-xl"></div>
         <div className="flex w-full flex-col gap-2 rounded-xl p-4">
           <img
             src={convertBlobs(pokemon.imgBlob)}

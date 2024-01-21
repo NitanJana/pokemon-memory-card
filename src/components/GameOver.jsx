@@ -22,14 +22,9 @@ const GameOver = ({ setScore, setIsGameOver, setPokeData }) => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-8">
-      <p className="bg-gradient-to-r from-[#ec008c] to-[#fc6767] bg-clip-text text-xl font-semibold text-transparent">
-        Play Again?
-      </p>
+      <p className="gradient-primay bg-clip-text text-xl font-semibold text-transparent">Play Again?</p>
       <Tilt glareEnable={true} glareMaxOpacity={0.5} glareBorderRadius={'0.5rem'} glarePosition={'all'} scale={1.1}>
-        <button
-          className="rounded-lg bg-gradient-to-r from-[#ec008c] to-[#fc6767] px-6 py-3 text-xl font-bold text-white"
-          onClick={handleClick}
-        >
+        <button className="gradient-primay rounded-lg px-6 py-3 text-xl font-bold text-white" onClick={handleClick}>
           Replay
         </button>
       </Tilt>

@@ -3,7 +3,7 @@ import capitalizeName from './capitalizeName';
 import fetchPokemonImgUrl from './fetchPokemonImgUrl';
 import getPokemonImg from './getPokemonImg';
 
-const fetchData = async (url, limit = '100') => {
+const fetchData = async (url, limit = '100', pokeNum = '12') => {
   // Get pokemon name and pokemon urls here
   const response = await fetch(`${url}?limit=${limit}`);
   const data = await response.json();
@@ -12,7 +12,7 @@ const fetchData = async (url, limit = '100') => {
   const trimmedResults = results.filter((pokemon) => results.indexOf(pokemon) % 3 === 0);
 
   // Shuffle the array elements and select random 15 pokemon
-  const pokeArray = shuffleArray(trimmedResults).slice(0, 15);
+  const pokeArray = shuffleArray(trimmedResults).slice(0, pokeNum);
 
   // Return pokemon names , image urls and clicked status
   const updatedPokeArray = await Promise.all(

@@ -7,6 +7,7 @@ import GameOver from './components/GameOver';
 import Score from './components/Score';
 import Footer from './components/Footer';
 import './App.css';
+import GameInfo from './components/GameInfo';
 
 function App() {
   const [pokeData, setPokeData] = useState([]);
@@ -16,7 +17,7 @@ function App() {
 
   useEffect(() => {
     const getData = async () => {
-      const updatedPokeArray = await fetchData('https://pokeapi.co/api/v2/pokemon/', '100');
+      const updatedPokeArray = await fetchData('https://pokeapi.co/api/v2/pokemon/', '100','12');
       setPokeData(updatedPokeArray);
       // Delay loading by 4 seconds
       setTimeout(() => {
@@ -27,7 +28,7 @@ function App() {
   }, []);
 
   return (
-    <div className="grid min-h-screen items-center justify-center justify-items-center p-4">
+    <div className="grid min-h-screen items-center justify-items-center p-4 ">
       {isLoading && <HashLoader color="#fc6767" />}
       {!isLoading && <Score score={score} isGameOver={isGameOver} />}
 
@@ -46,6 +47,7 @@ function App() {
             )}
           </div>
 
+          {!isLoading && !isGameOver && <GameInfo />}
           {!isLoading && isGameOver && <Footer />}
         </>
       )}
