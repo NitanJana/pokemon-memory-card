@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import fetchData from './utilities/fetchData';
 
-// import Loader from './components/Loader';
 import HashLoader from 'react-spinners/HashLoader';
 import PokemonGrid from './components/PokemonGrid';
 import GameOver from './components/GameOver';
-import './App.css';
 import Score from './components/Score';
 import Footer from './components/Footer';
+import './App.css';
 
 function App() {
   const [pokeData, setPokeData] = useState([]);
@@ -29,7 +28,6 @@ function App() {
 
   return (
     <div className="grid min-h-screen items-center justify-center justify-items-center p-4">
-      {/* {isLoading && <Loader />} */}
       {isLoading && <HashLoader color="#fc6767" />}
       {!isLoading && <Score score={score} isGameOver={isGameOver} />}
 
