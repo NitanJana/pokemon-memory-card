@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import shuffleArray from '../utilities/shuffleArray';
+import Tilt from 'react-parallax-tilt';
 
 const GameOver = ({ setScore, setIsGameOver, setPokeData }) => {
   const handleClick = () => {
@@ -21,13 +22,17 @@ const GameOver = ({ setScore, setIsGameOver, setPokeData }) => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-8">
-      <p className="text-lg">Play Again?</p>
-      <button
-        className="rounded-lg bg-gradient-to-r from-[#ec008c] to-[#fc6767]  px-4 py-2 text-xl font-bold text-white "
-        onClick={handleClick}
-      >
-        REPLAY
-      </button>
+      <p className="bg-gradient-to-r from-[#ec008c] to-[#fc6767] bg-clip-text text-xl font-semibold text-transparent">
+        Play Again?
+      </p>
+      <Tilt glareEnable={true} glareMaxOpacity={0.5} glareBorderRadius={'0.5rem'} glarePosition={'all'} scale={1.1}>
+        <button
+          className="rounded-lg bg-gradient-to-r from-[#ec008c] to-[#fc6767] px-6 py-3 text-xl font-bold text-white"
+          onClick={handleClick}
+        >
+          Replay
+        </button>
+      </Tilt>
     </div>
   );
 };

@@ -5,6 +5,8 @@ import Loader from './components/Loader';
 import PokemonGrid from './components/PokemonGrid';
 import GameOver from './components/GameOver';
 import './App.css';
+import Score from './components/Score';
+import Footer from './components/Footer';
 
 function App() {
   const [pokeData, setPokeData] = useState([]);
@@ -25,28 +27,29 @@ function App() {
   }, []);
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center gap-4">
+    <div className="grid min-h-screen items-center justify-center justify-items-center p-4">
+      {isLoading && <Loader />}
+      {!isLoading && <Score score={score} isGameOver={isGameOver} />}
+
       {!isLoading && (
-        <p className="rounded bg-gradient-to-r from-[#ec008c] to-[#fc6767] bg-clip-text p-4 text-2xl font-semibold text-transparent">
-          Score: {score}
-        </p>
+        <>
+          <div className="flex items-center justify-center">
+            {isGameOver ? (
+              <GameOver score={score} setScore={setScore} setIsGameOver={setIsGameOver} setPokeData={setPokeData} />
+            ) : (
+              <PokemonGrid
+                pokeData={pokeData}
+                setPokeData={setPokeData}
+                updateScore={() => setScore(score + 1)}
+                setIsGameOver={setIsGameOver}
+              />
+            )}
+          </div>
+
+          {!isLoading && isGameOver && <Footer />}
+        </>
       )}
-      <div className="flex items-center justify-center">
-        {isGameOver ? (
-          <GameOver score={score} setScore={setScore} setIsGameOver={setIsGameOver} setPokeData={setPokeData} />
-        ) : isLoading ? (
-          <Loader />
-        ) : (
-          <>
-            <PokemonGrid
-              pokeData={pokeData}
-              setPokeData={setPokeData}
-              updateScore={() => setScore(score + 1)}
-              setIsGameOver={setIsGameOver}
-            />
-          </>
-        )}
-      </div>
+      
     </div>
   );
 }
