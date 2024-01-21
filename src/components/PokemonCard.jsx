@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import shuffleArray from '../utilities/shuffleArray';
+import Tilt from 'react-parallax-tilt';
 
 const PokemonCard = ({ pokemon, updateScore, setPokeData, setIsGameOver }) => {
   const handleScore = () => {
@@ -34,20 +35,25 @@ const PokemonCard = ({ pokemon, updateScore, setPokeData, setIsGameOver }) => {
   };
 
   return (
-    <div
-      className="flex w-full cursor-pointer select-none flex-col gap-2 rounded-xl bg-emerald-500 p-4 active:bg-violet-700"
-      onClick={handleScore}
-    >
-      <img
-        src={convertBlobs(pokemon.imgBlob)}
-        alt={pokemon.name}
-        width="100px"
-        height="100px"
-        className="pointer-events-none"
-      />
+    <Tilt glareEnable={true} glareMaxOpacity={0.5} glareBorderRadius={'0.75rem'} glarePosition={'all'} scale={1.1}>
+      <div
+        className="relative cursor-pointer select-none rounded-xl shadow-xl shadow-[#ec008e7e]"
+        onClick={handleScore}
+      >
+        <div className="absolute -z-10 h-full w-full rounded-xl bg-gradient-to-r from-[#ec008ee1] to-[#fc6767e1] "></div>
+        <div className="flex w-full flex-col gap-2 rounded-xl p-4">
+          <img
+            src={convertBlobs(pokemon.imgBlob)}
+            alt={pokemon.name}
+            width="110px"
+            height="110px"
+            className="pointer-events-none"
+          />
 
-      <p className="text-md text-center font-semibold text-white">{pokemon.name}</p>
-    </div>
+          <p className="text-md text-center font-bold text-white">{pokemon.name}</p>
+        </div>
+      </div>
+    </Tilt>
   );
 };
 

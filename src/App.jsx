@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchData } from './utilities/fetchData';
+import fetchData from './utilities/fetchData';
 
 import Loader from './components/Loader';
 import PokemonGrid from './components/PokemonGrid';
@@ -19,28 +19,34 @@ function App() {
       // Delay loading by 4 seconds
       setTimeout(() => {
         setIsLoading(false);
-      }, 4000);
+      }, 2000);
     };
     getData();
   }, []);
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      {isGameOver ? (
-        <GameOver score={score} setScore={setScore} setIsGameOver={setIsGameOver} setPokeData={setPokeData} />
-      ) : isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <p className="absolute top-4">Score: {score}</p>
-          <PokemonGrid
-            pokeData={pokeData}
-            setPokeData={setPokeData}
-            updateScore={() => setScore(score + 1)}
-            setIsGameOver={setIsGameOver}
-          />
-        </>
+    <div className="flex h-screen flex-col items-center justify-center gap-4">
+      {!isLoading && (
+        <p className="rounded bg-gradient-to-r from-[#ec008c] to-[#fc6767] bg-clip-text p-4 text-2xl font-semibold text-transparent">
+          Score: {score}
+        </p>
       )}
+      <div className="flex items-center justify-center">
+        {isGameOver ? (
+          <GameOver score={score} setScore={setScore} setIsGameOver={setIsGameOver} setPokeData={setPokeData} />
+        ) : isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <PokemonGrid
+              pokeData={pokeData}
+              setPokeData={setPokeData}
+              updateScore={() => setScore(score + 1)}
+              setIsGameOver={setIsGameOver}
+            />
+          </>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import shuffleArray from '../utilities/shuffleArray';
 
-const GameOver = ({ score, setScore, setIsGameOver, setPokeData }) => {
+const GameOver = ({ setScore, setIsGameOver, setPokeData }) => {
   const handleClick = () => {
     setPokeData((currentPokeData) => {
       // Reset all cards
@@ -20,9 +20,12 @@ const GameOver = ({ score, setScore, setIsGameOver, setPokeData }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <p>Game Over Score : {score}</p>
-      <button className="rounded-lg bg-emerald-400 px-4 py-2 text-xl font-bold text-white " onClick={handleClick}>
+    <div className="flex flex-col items-center justify-center gap-8">
+      <p className="text-lg">Play Again?</p>
+      <button
+        className="rounded-lg bg-gradient-to-r from-[#ec008c] to-[#fc6767]  px-4 py-2 text-xl font-bold text-white "
+        onClick={handleClick}
+      >
         REPLAY
       </button>
     </div>
@@ -30,7 +33,6 @@ const GameOver = ({ score, setScore, setIsGameOver, setPokeData }) => {
 };
 
 GameOver.propTypes = {
-  score: PropTypes.number.isRequired,
   setScore: PropTypes.func.isRequired,
   setIsGameOver: PropTypes.func.isRequired,
   setPokeData: PropTypes.func.isRequired,

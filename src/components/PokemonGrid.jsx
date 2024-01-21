@@ -17,7 +17,7 @@ const PokemonGrid = ({ pokeData, updateScore, setPokeData, setIsGameOver }) => {
   }, [pokeData, setPokeData, updateScore, setIsGameOver]);
 
   return (
-    <div className="m-4 grid grid-cols-3 items-center justify-items-center gap-4 p-4 md:grid-cols-5">
+    <div className="m-4 grid grid-cols-3 items-center justify-items-center gap-6 p-4 md:grid-cols-5">
       {memoizedPokemonCards}
     </div>
   );

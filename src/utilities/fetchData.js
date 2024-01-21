@@ -32,4 +32,4 @@ const fetchData = async (url, limit = '100') => {
   return updatedPokeArray;
 };
 
-export { fetchData };
+export default fetchData;
