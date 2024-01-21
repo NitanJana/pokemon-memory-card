@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import fetchData from './utilities/fetchData';
 
-import Loader from './components/Loader';
+// import Loader from './components/Loader';
+import HashLoader from 'react-spinners/HashLoader';
 import PokemonGrid from './components/PokemonGrid';
 import GameOver from './components/GameOver';
 import './App.css';
@@ -21,14 +22,15 @@ function App() {
       // Delay loading by 4 seconds
       setTimeout(() => {
         setIsLoading(false);
-      }, 2000);
+      }, 3000);
     };
     getData();
   }, []);
 
   return (
     <div className="grid min-h-screen items-center justify-center justify-items-center p-4">
-      {isLoading && <Loader />}
+      {/* {isLoading && <Loader />} */}
+      {isLoading && <HashLoader color="#fc6767" />}
       {!isLoading && <Score score={score} isGameOver={isGameOver} />}
 
       {!isLoading && (
@@ -49,7 +51,6 @@ function App() {
           {!isLoading && isGameOver && <Footer />}
         </>
       )}
-      
     </div>
   );
 }
