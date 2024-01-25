@@ -36,11 +36,8 @@ const PokemonCard = ({ pokemon, updateScore, setPokeData, setIsGameOver }) => {
 
   return (
     <Tilt glareEnable={true} glareMaxOpacity={0.5} glareBorderRadius={'0.75rem'} glarePosition={'all'} scale={1.1}>
-      <div
-        className="relative cursor-pointer select-none rounded-xl shadow-xl shadow-[#ec008e7e]"
-        onClick={handleScore}
-      >
-        <div className="absolute -z-10 h-full w-full rounded-xl bg-gradient-to-r from-[#ec008ee1] to-[#fc6767e1]"></div>
+      <div className="shadow-pink-dark relative cursor-pointer select-none rounded-xl shadow-xl" onClick={handleScore}>
+        <div className="from-gradient-pink to-gradient-orange absolute -z-10 h-full w-full rounded-xl bg-gradient-to-r"></div>
         <div className="flex w-full flex-col gap-2 rounded-xl p-4">
           <img
             src={convertBlobs(pokemon.imgBlob)}

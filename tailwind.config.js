@@ -6,6 +6,11 @@ export default {
       blur: {
         xs: '2px',
       },
+      colors: {
+        'gradient-pink': '#ec008ee1',
+        'gradient-orange': '#fc6767e1',
+        'pink-dark': '#ec008e7e',
+      },
     },
   },
   plugins: [],

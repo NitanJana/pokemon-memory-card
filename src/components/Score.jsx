@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 const Score = ({ score, isGameOver }) => {
   return (
     <p
-      className={`rounded bg-gradient-to-r from-[#ec008ee1] to-[#fc6767e1] bg-clip-text p-4 font-semibold text-transparent  ${isGameOver ? 'self-end text-6xl' : 'text-2xl'}`}
+      className={`from-gradient-pink to-gradient-orange rounded bg-gradient-to-r bg-clip-text p-4 font-semibold text-transparent  ${isGameOver ? 'self-end text-6xl' : 'text-2xl'}`}
     >
       Score: {score}
     </p>
