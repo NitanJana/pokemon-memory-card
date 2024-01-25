@@ -10,7 +10,7 @@ const GameInfo = () => {
         Don&apos;t click on the same card twice
       </p>
       <p
-        className="gradient-primay flex h-10 w-10 items-center justify-center rounded-full text-xl font-semibold text-white"
+        className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-[#ec008ee1] to-[#fc6767e1] text-xl font-semibold text-white"
         onClick={() => setIsHidden(!isHidden)}
       >
         {isHidden ? '?' : 'x'}

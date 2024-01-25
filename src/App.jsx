@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
     const getData = async () => {
-      const updatedPokeArray = await fetchData('https://pokeapi.co/api/v2/pokemon/', '100','12');
+      const updatedPokeArray = await fetchData('https://pokeapi.co/api/v2/pokemon/', '100', '12');
       setPokeData(updatedPokeArray);
       // Delay loading by 4 seconds
       setTimeout(() => {
@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   return (
-    <div className="grid min-h-screen items-center justify-items-center p-4 ">
+    <div className="grid min-h-screen items-center justify-items-center bg-gray-100 p-4">
       {isLoading && <HashLoader color="#fc6767" />}
       {!isLoading && <Score score={score} isGameOver={isGameOver} />}
 
